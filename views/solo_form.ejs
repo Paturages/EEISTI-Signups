@@ -1,0 +1,51 @@
+	<div class="modal fade" id="signup-solo" tabindex="-1" role="dialog" aria-labelledby="Inscription Solo" aria-hidden="true">
+	  <div class="modal-dialog">
+		<div class="modal-content">
+		  <div class="modal-header">
+			<button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Fermer</span></button>
+			<h4 class="modal-title" id="signup-solo-label">Inscription</h4>
+		  </div>
+		  <form name="signup-solo" id="signup-solo-form" action="/signup/solo/insert" method="POST">
+		  <input type="hidden" name="game" id="solo-game" value="0" />
+		  <input type="hidden" name="id" id="signup-solo-id" value="0" />
+		  <div class="modal-body" id="signup-solo-body">
+			<div class="form-group">
+				<label for="last_name">Nom :</label>
+				<input type="text" class="form-control" name="last_name" id="signup-solo-last_name" />
+			</div>
+			<div class="form-group">
+				<label for="first_name">Prénom :</label>
+				<input type="text" class="form-control" name="first_name" id="signup-solo-first_name" />
+			</div>
+			<div class="form-group" id="signup-solo-campus">
+				<label for="campus">Campus :</label>
+				<div class="radio">
+					<label>
+					<input type="radio" name="campus" id="signup-solo-cergy" value="Cergy" checked>
+					Cergy
+					</label>
+				</div>
+				<div class="radio">
+					<label>
+					<input type="radio" name="campus" id="signup-solo-pau" value="Pau">
+					Pau
+					</label>
+				</div>
+			</div>
+			<div class="form-group">
+				<label for="nickname" id="signup-solo-nickname_handle">Pseudonyme :</label>
+				<input type="text" class="form-control" name="nickname" id="signup-solo-nickname" />
+			</div>
+			<div class="form-group">
+				<label for="password">Mot de passe :</label>
+				<input type="password" class="form-control" name="password" />
+			</div>
+		  </div>
+		  <div class="modal-footer">
+			<button type="button" class="btn btn-default" data-dismiss="modal">Fermer</button>
+			<button type="button" class="btn btn-primary" onclick='soloValidate()'>Confirmer</button>
+		  </div>
+		  </form>
+		</div>
+	  </div>
+	</div>

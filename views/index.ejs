@@ -1,0 +1,173 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" lang="fr">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>E-EISTI : Inscriptions aux tournois</title>
+	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+	<script src="/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="/js/form.js" type="text/javascript"></script>
+    <link href="/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/css/style.css" rel="stylesheet">
+  </head>
+  <body>
+	<% include solo_form.ejs %>
+	<% include delete_form.ejs %>
+	<% include team_form.ejs %>
+	<div class="container">
+		<div class="page-header">
+			<table width="100%">
+			<tr>
+			<td id="page-header-left">
+				<h1>Inscriptions aux tournois</h1>
+				<p class="lead">Ci-dessous les listes par jeux des inscriptions</p>
+			</td>
+			<td id="page-header-right">
+				<a href="http://eeisti.eistiens.net/"><img src="/img/eeisti.png" alt="E-EISTI" height="150" width="150"/></a>
+			</td>
+			</tr>
+			</table>
+		</div>
+		<% if (alert.type) { %>
+		<div class="alert <%= alert.type %> alert-dismissible" role="alert">
+			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+			<%= alert.content %>
+		</div>
+		<% } %>
+		<% var i,j,k %>
+		<% for (i = 0 ; i < games.length ; i++) { %>
+		<h3><%= games[i].full_name %> &nbsp;&nbsp;&nbsp;
+			<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#signup-<% if (games[i].max_players == 1) { %>solo<% } else { %>team<% } %>" onclick='<% if (games[i].max_players == 1) { %>onSolo(<%= games[i].id %>,"<%= games[i].full_name %>","<%= games[i].nickname_field %>",<%= games[i].multicampus %>)<% } else { %>onTeam(<%= games[i].id %>,"<%= games[i].full_name %>","<%= games[i].nickname_field %>",<%= games[i].max_players %>,<%= games[i].multicampus %>)<% } %>'>
+				<span class="glyphicon glyphicon-pencil"></span> S'inscrire
+			</button>
+		</h3>
+		<div id="<%= games[i].short %>" <% if (games[i].max_players == 1) { %>class="solo"<% } %>>
+			<% if (games[i].max_players == 1) { %>
+			<% if (games[i].players.length == 0) { %>
+			<div class="team">
+				<div class="row empty">
+					<div class="col-md-12"><h4>Pas de joueurs inscrits</h4></div>
+				</div>
+			</div>
+			<% } else { %>
+			<div class="row header">
+				<div class="col-md-2"><strong>Nom</strong></div>
+				<div class="col-md-2"><strong>Prénom</strong></div>
+				<% if (games[i].multicampus) { %>
+				<div class="col-md-2"><strong><%= games[i].nickname_field %></strong></div>
+				<div class="col-md-2"><strong>Campus</strong></div>
+				<% } else { %>
+				<div class="col-md-3"><strong><%= games[i].nickname_field %></strong></div>
+				<% } %>
+				<div class="col-md-3"><strong>Date d'inscription</strong></div>
+				<div class="col-md-2"></div>
+			</div>
+			<div class="inner-body">
+			<% if (typeof games[i].players != "undefined") { for (j = 0 ; j < games[i].players.length ; j++) { %>
+				<div class="row">
+					<div class="col-md-2"><%= games[i].players[j].last_name %></div>
+					<div class="col-md-2"><%= games[i].players[j].first_name %></div>
+					<% if (games[i].multicampus) { %>
+					<div class="col-md-2"><%= games[i].players[j].nickname %></div>
+					<div class="col-md-2"><%= games[i].players[i].campus %></div>
+					<div class="col-md-2"><%= games[i].players[j].signup_time.toString() %></div>
+					<% } else { %>
+					<div class="col-md-3"><%= games[i].players[j].nickname %></div>
+					<div class="col-md-3"><%= games[i].players[j].signup_time.toString() %></div>
+					<% } %>
+					<div class="col-md-1 btn_img">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#signup-solo" onclick='onEditSolo(<%= games[i].id %>,"<%= games[i].full_name %>","<%= games[i].nickname_field %>",<%= games[i].players[j].id %>,"<%= games[i].players[j].last_name %>","<%= games[i].players[j].first_name %>","<%= games[i].players[j].nickname %>",<%= games[i].multicampus %>)'>
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</div>
+					<div class="col-md-1 btn_img">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete" onclick='onDeleteSolo("<%= games[i].full_name %>", <%= games[i].players[j].id %>)'>
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+			<% }} %>
+			<% } %>
+			<% } else { %>
+			<% if (typeof games[i].teams != "undefined") { %>
+			<% if (games[i].teams.length == 0) { %>
+			<div class="team">
+				<div class="row empty">
+					<div class="col-md-12"><h4>Pas d'équipes inscrites</h4></div>
+				</div>
+			</div>
+			<% } else { for (j = 0 ; j < games[i].teams.length ; j++) { %>
+			<div class="team">
+			<div class="row header">
+					<% if (games[i].multicampus) { %>
+					<div class="col-md-4"><strong>Nom de l'équipe</strong></div>
+					<div class="col-md-2"><strong>Campus</strong></div>
+					<% } else { %>
+					<div class="col-md-6"><strong>Nom de l'équipe</strong></div>
+					<% } %>
+					<div class="col-md-4"><strong>Date d'inscription</strong></div>
+					<div class="col-md-2"></div>
+			</div>
+			<div class="inner-body">
+				<div class="row">
+					<% if (games[i].multicampus) { %>
+					<div class="col-md-4"><%= games[i].teams[j].tname %></div>
+					<div class="col-md-2"><%= games[i].teams[j].campus %></div>
+					<% } else { %>
+					<div class="col-md-6"><%= games[i].teams[j].tname %></div>
+					<% } %>
+					<div class="col-md-4"><%= games[i].teams[j].signup_time.toString() %></div>
+					<div class="col-md-1 btn_img">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#signup-team" onclick='onEditTeam(<%= games[i].teams[j].id %>, "<%= games[i].full_name %>","<%= games[i].nickname_field %>",<%= games[i].max_players %>,<%= games[i].multicampus %>,"<%= games[i].teams[j].tname %>","<%= games[i].teams[j].campus %>",[
+						<% for (k = 0 ; k < games[i].teams[j].players.length ; k++) { %>
+						<% if (k > 0) { %>,<% } %>{
+							last_name: "<%= games[i].teams[j].players[k].last_name %>",
+							first_name: "<%= games[i].teams[j].players[k].first_name %>",
+							nickname: "<%= games[i].teams[j].players[k].nickname %>"
+						}
+						<% } %>
+						])'>
+							<span class="glyphicon glyphicon-pencil"></span>
+						</button>
+					</div>
+					<div class="col-md-1 btn_img">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete" onclick='onDeleteTeam("<%= games[i].full_name %>", <%= games[i].teams[j].id %>)'>
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+			</div>
+				<div class="row subheader">
+					<div class="col-md-3"><strong>Nom du joueur</strong></div>
+					<div class="col-md-3"><strong>Prénom du joueur</strong></div>
+					<div class="col-md-4"><strong><%= games[i].nickname_field %></strong></div>
+					<div class="col-md-2"></div>
+				</div>
+			<div class="inner-body">
+				<% if (typeof games[i].teams[j].players != "undefined") { for (k = 0 ; k < games[i].teams[j].players.length ; k++) { %>
+				<div class="row">
+					<div class="col-md-3"><%= games[i].teams[j].players[k].last_name %></div>
+					<div class="col-md-3"><%= games[i].teams[j].players[k].first_name %></div>
+					<div class="col-md-4"><%= games[i].teams[j].players[k].nickname %></div>
+					<div class="col-md-1 btn_img"><!--<a href="signup/edit?player=<%= games[i].teams[j].players[k].id %>"><span class="glyphicon glyphicon-pencil btn btn-default btn-lg"></span></a>--></div>
+					<div class="col-md-1 btn_img">
+						<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#delete" onclick='onDeleteTeamPlayer("<%= games[i].full_name %>", <%= games[i].teams[j].players[k].id %>)'>
+							<span class="glyphicon glyphicon-remove"></span>
+						</button>
+					</div>
+				</div>
+				<% }} %>
+			</div>
+			</div>
+			<% }}} %>
+			<% } %>
+		</div>
+		<% } %>
+		
+		<div class="footer">
+			<p style="padding-top: 19px; color: #777; border-top: 1px solid #e5e5e5;">&copy; E-EISTI 2014 - C'est moins moche maintenant. Contents ?</p>
+		</div>
+	</div><!-- /container -->
+  </body>
+</html>

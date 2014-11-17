@@ -1,0 +1,13 @@
+{
+  "name": "EEISTI_LAN",
+  "version": "0.1.0",
+  "description": "Interface d'inscription et de gestion de LANs pour E-EISTI",
+  "author": "Ingouff Christian",
+  "main": "app.js",
+  "dependencies": {
+    "ejs": "^1.0.0",
+    "express": "^4.2.0",
+	"pg": "^3.6.2",
+	"body-parser": "^1.9.2"
+  }
+}

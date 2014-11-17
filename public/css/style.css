@@ -1,0 +1,64 @@
+[class*="col-"] {
+	padding: 10px 10px 10px 10px;
+}
+.inner-body [class*="col-"] {
+	min-height: 42px;
+}
+.inner-body {
+	padding: 0px 10px 0px 10px;
+}
+.inner-body .row:nth-child(odd) {
+	background-color: #ffe;
+}
+.inner-body .row:nth-child(even) {
+	background-color: #fef;
+}
+.comment {
+	text-align: center;
+	background-color: #aef;
+}
+.header {
+	background-color: #ede;
+	min-height: 42px;
+}
+.subheader {
+	background-color: #fdf;
+}
+.team {
+	margin-bottom: 50px;
+}
+.solo {
+	margin-bottom: 50px;
+}
+.btn_img {
+	text-align: center;
+}
+#page-header-left {
+	width: 80%;
+}
+#page-header-right {
+	width: 20%;
+	text-align: center;
+}
+.empty [class*="col-"] {
+	background-color: #def;
+	text-align: center;
+}
+.signup-team-player {
+    padding: 10px 10px 10px 10px;
+	margin-bottom: 10px;
+	border-style: solid;
+	border-color: #DADADA;
+	border-width: 1px;
+    border-radius: 10px;
+}
+.signup-team-player p {
+    font-size: 12px;
+    font-weight: 700;
+    color: #999999;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+#addTeamTemplate {
+	display: none;
+}

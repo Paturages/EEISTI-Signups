@@ -7,11 +7,11 @@ Installation :
 ------------------
 Ce projet a été testé sous node.js 0.10.32, intégrant une base de données sous PostgreSQL 9.3. En dessous ça peut sûrement marcher, mais c'est pas garanti.
 
-Dépendances node.js :
+### Dépendances node.js :
 npm install
 
-Jeu d'essai SQL :
+### Jeu d'essai SQL :
 cf. dossier /sql
 
-Lancer l'application :
+### Lancer l'application :
 node app.js

@@ -21,7 +21,7 @@
 			<tr>
 			<td id="page-header-left">
 				<h1>Inscriptions aux tournois</h1>
-				<p class="lead">Ci-dessous les listes par jeux des inscriptions</p>
+				<p class="lead">Cliquez sur les jeux ci-dessous pour les listes des inscriptions</p>
 			</td>
 			<td id="page-header-right">
 				<a href="http://eeisti.eistiens.net/"><img src="/img/eeisti.png" alt="E-EISTI" height="150" width="150"/></a>
@@ -29,19 +29,30 @@
 			</tr>
 			</table>
 		</div>
+		<!-- Begin body -->
+		<div class="panel-group" id="accordion" role="tablist" aria-multiselectable="true">		
 		<% if (alert.type) { %>
 		<div class="alert <%= alert.type %> alert-dismissible" role="alert">
 			<button type="button" class="close" data-dismiss="alert"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
 			<%= alert.content %>
 		</div>
 		<% } %>
+		
+		
 		<% var i,j,k %>
 		<% for (i = 0 ; i < games.length ; i++) { %>
-		<h3><%= games[i].full_name %> &nbsp;&nbsp;&nbsp;
+		<div class="panel panel-default">		
+		
+		<div class="panel-heading" role="tab" id="heading-<%= games[i].short %>">
+		<h3 class="panel-title">
+		<a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= games[i].short %>" aria-expanded="false" aria-controls="collapse-<%= games[i].short %>"><%= games[i].full_name %></a> &nbsp;&nbsp;&nbsp;
 			<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#signup-<% if (games[i].max_players == 1) { %>solo<% } else { %>team<% } %>" onclick='<% if (games[i].max_players == 1) { %>onSolo(<%= games[i].id %>,"<%= games[i].full_name %>","<%= games[i].nickname_field %>",<%= games[i].multicampus %>)<% } else { %>onTeam(<%= games[i].id %>,"<%= games[i].full_name %>","<%= games[i].nickname_field %>",<%= games[i].max_players %>,<%= games[i].multicampus %>)<% } %>'>
 				<span class="glyphicon glyphicon-pencil"></span> S'inscrire
 			</button>
 		</h3>
+		</div>
+		<div id="collapse-<%= games[i].short %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= games[i].short %>">
+		<div class="panel-body">
 		<div id="<%= games[i].short %>" <% if (games[i].max_players == 1) { %>class="solo"<% } %>>
 			<% if (games[i].max_players == 1) { %>
 			<% if (games[i].players.length == 0) { %>
@@ -88,6 +99,7 @@
 					</div>
 				</div>
 			<% }} %>
+			</div>
 			<% } %>
 			<% } else { %>
 			<% if (typeof games[i].teams != "undefined") { %>
@@ -163,8 +175,14 @@
 			<% }}} %>
 			<% } %>
 		</div>
+		
+		</div>
+		</div>
+		</div>
 		<% } %>
 		
+		</div>
+		<!-- End body -->
 		<div class="footer">
 			<p style="padding-top: 19px; color: #777; border-top: 1px solid #e5e5e5;">&copy; E-EISTI 2014 - C'est moins moche maintenant. Contents ?</p>
 		</div>

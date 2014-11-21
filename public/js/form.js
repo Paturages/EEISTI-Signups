@@ -1,6 +1,15 @@
 $(document).ready(function() {
 	$('#signup-team').on('hidden.bs.modal', function () {
 		$('#signup-team-body').children('.signup-team-player').remove();
+		$('#signup-team-body input').each(function() {
+			$(this).css('background-color','#FFFFFF');
+		});
+	});
+	
+	$('#signup-solo').on('hidden.bs.modal', function () {
+		$('#signup-solo-body input').each(function() {
+			$(this).css('background-color','#FFFFFF');
+		});
 	});
 });
 
@@ -173,14 +182,16 @@ function soloValidate() {
 	var valid = true;
 	var $inputs = $('#signup-solo-body input');
 	$inputs.each(function() {
-		if (valid) {
-			if (typeof $(this).attr('value') == "undefined") {
-				$(this).css('background-color','#FFEAEF');
-				$('signup-solo').animate({
+		if ($(this).val() == "") {
+			$(this).css('background-color','#FFEAEF');
+			if (valid) {
+				$('#signup-solo').animate({
 					scrollTop: $(this).offset().top
 				}, 2000);
-				valid = false;
 			}
+			valid = false;
+		} else {
+			$(this).css('background-color','#FFFFFF');
 		}
 	});
 	
@@ -191,19 +202,22 @@ function soloValidate() {
 
 function teamValidate() {
 	var valid = true;
+
 	var $inputs = $('#signup-team-body input');
 	$inputs.each(function() {
-		if (valid) {
-			if (typeof $(this).attr('value') == "undefined") {
-				$(this).css('background-color','#FFEAEF');
+		if ($(this).val() == "") {
+			$(this).css('background-color','#FFEAEF');
+			if (valid) {
 				$('#signup-team').animate({
 					scrollTop: $(this).offset().top
 				}, 2000);
-				valid = false;
 			}
+			valid = false;
+		} else {
+			$(this).css('background-color','#FFFFFF');
 		}
 	});
-	
+
 	if (valid) {
 		$('#signup-team-form').submit();
 	}

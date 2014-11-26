@@ -6,10 +6,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>E-EISTI : Inscriptions aux tournois</title>
 	<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
-	<script src="/js/bootstrap.min.js" type="text/javascript"></script>
-	<script src="/js/form.js" type="text/javascript"></script>
-    <link href="/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/css/style.css" rel="stylesheet">
+	<script src="http://eeisti.eistiens.net/signup-public/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="http://eeisti.eistiens.net/signup-public/js/form.js" type="text/javascript"></script>
+    <link href="http://eeisti.eistiens.net/signup-public/css/bootstrap.min.css" rel="stylesheet">
+    <link href="http://eeisti.eistiens.net/signup-public/css/style.css" rel="stylesheet">
   </head>
   <body>
 	<% include solo_form.ejs %>
@@ -24,7 +24,7 @@
 				<p class="lead">Cliquez sur les jeux ci-dessous pour les listes des inscriptions</p>
 			</td>
 			<td id="page-header-right">
-				<a href="http://eeisti.eistiens.net/"><img src="/img/eeisti.png" alt="E-EISTI" height="150" width="150"/></a>
+				<a href="http://eeisti.eistiens.net/"><img src="http://eeisti.eistiens.net/signup-public/img/eeisti.png" alt="E-EISTI" height="150" width="150"/></a>
 			</td>
 			</tr>
 			</table>
@@ -48,7 +48,12 @@
 		<a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= games[i].short %>" aria-expanded="false" aria-controls="collapse-<%= games[i].short %>"><%= games[i].full_name %></a> &nbsp;&nbsp;&nbsp;
 			<button type="button" class="btn btn-default btn-sm" data-toggle="modal" data-target="#signup-<% if (games[i].max_players == 1) { %>solo<% } else { %>team<% } %>" onclick='<% if (games[i].max_players == 1) { %>onSolo(<%= games[i].id %>,"<%= games[i].full_name %>","<%= games[i].nickname_field %>",<%= games[i].multicampus %>)<% } else { %>onTeam(<%= games[i].id %>,"<%= games[i].full_name %>","<%= games[i].nickname_field %>",<%= games[i].max_players %>,<%= games[i].multicampus %>)<% } %>'>
 				<span class="glyphicon glyphicon-pencil"></span> S'inscrire
+			</button> &nbsp;&nbsp;&nbsp;
+			<a data-toggle="collapse" data-parent="#accordion" href="#collapse-<%= games[i].short %>" aria-expanded="false" aria-controls="collapse-<%= games[i].short %>">
+			<button class="btn btn-default btn-sm">
+				<span class="glyphicon glyphicon-user"></span> Voir les inscriptions
 			</button>
+			</a>
 		</h3>
 		</div>
 		<div id="collapse-<%= games[i].short %>" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading-<%= games[i].short %>">

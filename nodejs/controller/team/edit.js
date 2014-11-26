@@ -25,26 +25,50 @@ function process() {
 						target = '/signup?event=fail';
 					}
 					if (players) {
-						for (var i = 0 ; i < players.length ; i++) {
-							players[i].last_name = req.body.last_name[i];
-							players[i].first_name = req.body.first_name[i];
-							players[i].nickname = req.body.nickname[i];
-							dao_player.update(players[i], function(err) {
-								count++;
-								if (err) {
-									console.log(err);
-									target = '/signup?event=fail';
-								} else if (count == players.length) {
-									dao_team.update(team, function(err) {
-										if (err) {
-											console.log(err);
-											target = '/signup?event=fail';
-										}
-										res.redirect(target);
-										db.disconnect();
-									});
-								}
-							});
+						for (var i = 0 ; i < req.body.last_name.length ; i++) {
+							if (i >= players.length) {
+								dao_player.create({
+									last_name: req.body.last_name[i],
+									first_name: req.body.first_name[i],
+									nickname: req.body.nickname[i],
+									id_team: req.body.id,
+								}, function(err, result) {
+									count++;
+									if (err) {
+										console.log(err);
+										target = '/signup?event=fail';
+									} else if (count == req.body.last_name.length) {
+										dao_team.update(team, function(err) {
+											if (err) {
+												console.log(err);
+												target = '/signup?event=fail';
+											}
+											res.redirect(target);
+											db.disconnect();
+										});
+									}
+								});
+							} else {
+								players[i].last_name = req.body.last_name[i];
+								players[i].first_name = req.body.first_name[i];
+								players[i].nickname = req.body.nickname[i];
+								dao_player.update(players[i], function(err) {
+									count++;
+									if (err) {
+										console.log(err);
+										target = '/signup?event=fail';
+									} else if (count == req.body.last_name.length) {
+										dao_team.update(team, function(err) {
+											if (err) {
+												console.log(err);
+												target = '/signup?event=fail';
+											}
+											res.redirect(target);
+											db.disconnect();
+										});
+									}
+								});
+							}
 						}
 					}					
 				});

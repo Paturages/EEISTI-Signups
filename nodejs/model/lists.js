@@ -6,7 +6,7 @@
 var db = require('./database.js'); /* Everything base de données */
 
 module.exports.getGames = function(callback) {
-	db.request('select * from Game', function(err, result) {
+	db.request('select * from Game order by id asc', function(err, result) {
 		if (err) {
 			console.log("error list games");
 			callback(err);
@@ -17,7 +17,7 @@ module.exports.getGames = function(callback) {
 }
 
 module.exports.getList = function(game, callback) {
-	db.request('select * from Solo where id_game=$1', [game.toString()], function(err, result) {
+	db.request('select * from Solo where id_game=$1 order by signup_time asc', [game.toString()], function(err, result) {
 		if (err) {
 			console.log("error list "+game.toString());
 			callback(err);
@@ -28,7 +28,7 @@ module.exports.getList = function(game, callback) {
 }
 
 module.exports.getTeams = function(game, callback) {
-	db.request('select * from Team where id_game=$1', [game.toString()], function(err, result) {
+	db.request('select * from Team where id_game=$1 order by signup_time asc', [game.toString()], function(err, result) {
 		if (err) {
 			console.log("error teams "+game.toString());
 			callback(err);

@@ -86,7 +86,7 @@
 					<div class="col-md-2"><%= games[i].players[j].first_name %></div>
 					<% if (games[i].multicampus) { %>
 					<div class="col-md-2"><%= games[i].players[j].nickname %></div>
-					<div class="col-md-2"><%= games[i].players[i].campus %></div>
+					<div class="col-md-2"><%= games[i].players[j].campus %></div>
 					<div class="col-md-2"><%= games[i].players[j].signup_time.toString() %></div>
 					<% } else { %>
 					<div class="col-md-3"><%= games[i].players[j].nickname %></div>

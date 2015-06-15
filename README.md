@@ -1,5 +1,7 @@
 E-EISTI Tournament Signups
 ==================================
+Continuation et port du projet en PHP par [ici](https://github.com/Paturages/EEISTI-Tournaments). Ce projet est conservé pour la postérité (et pour le node.js).  
+
 De l'apprentissage du node.js à une idée en l'air, ceci est une interface d'inscriptions pour jeux (avec différentiation "jeux solo" et "jeux en équipe"). C'est pas encore complet, donc considérez juste tout ceci comme une version (pré-)alpha.
 
 
